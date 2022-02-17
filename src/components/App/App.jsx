@@ -28,7 +28,7 @@ function App() {
         event.preventDefault();
         console.log('in addItem');
 
-        let newItem = {name: newName, quantity: newQuantity, unit: newUnit}
+        let newItem = {item: newName, quantity: newQuantity, unit: newUnit}
         console.log(newItem);
         axios({
             method: 'POST',
