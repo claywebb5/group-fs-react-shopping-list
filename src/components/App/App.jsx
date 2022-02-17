@@ -7,6 +7,9 @@ import './App.css';
 function App() {
 
     let [shoppingList, setShoppingList] = useState([]);
+    let [newName, setNewName] = useState('');
+    let [newQuantity, setNewQuantity] = useState('');
+    let [newUnit, setNewUnit] = useState('');
 
     // =================== GET ITEMS ==========================
     const getItem = () => {
@@ -21,22 +24,67 @@ function App() {
     } // end getItems
 
     // =================== POST ITEM ==========================
+    const addItem = () => {
+        event.preventDefault();
+        console.log('in addItem');
 
+        let newItem = {name: newName, quantity: newQuantity, unit: newUnit}
+        console.log(newItem);
+        axios({
+            method: 'POST',
+            url: '/list',
+            data: newItem
+        }).then((res) => {
+            console.log('in POST.then', res);
+
+            // rerender new list from database
+            getItem();
+
+            // clear inputs
+            setNewName('');
+            setNewQuantity('');
+            setNewUnit('');
+        }).catch((err) => {
+            console.log('err in POST.catch', err);
+        })
+    }
     // =================== USE EFFECT ==========================
     // get items on page load
     useEffect(() => {
         getItem();
     }, [])
 
-    console.log('shoppingList', shoppingList);
-
     return (
         <div className="App">
             <Header />
             <main>
-                <form>
+                <h1>Add an item</h1>
+                <form onSubmit={addItem}>
                     <label>Item:</label>
-                    <input type="text"/>
+                    <input 
+                        type="text" 
+                        placeholder="enter item"
+                        value={newName}
+                        onChange={(event) => setNewName(event.target.value)}
+                    />
+
+                    <label>Quantity:</label>
+                    <input 
+                        type="number" 
+                        placeholder="enter quantity"
+                        value={newQuantity}
+                        onChange={(event) => setNewQuantity(event.target.value)}
+                    />
+
+                    <label>Unit:</label>
+                    <input 
+                        type="text" 
+                        placeholder="enter unit"
+                        value={newUnit}
+                        onChange={(event) => setNewUnit(event.target.value)}
+                    />
+
+                    <button type="submit">Add item</button>
                 </form>
             </main>
         </div>
