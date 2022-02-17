@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Header from '../Header/Header.jsx'
 import './App.css';
@@ -7,30 +7,85 @@ import './App.css';
 function App() {
 
     let [shoppingList, setShoppingList] = useState([]);
+    let [newName, setNewName] = useState('');
+    let [newQuantity, setNewQuantity] = useState('');
+    let [newUnit, setNewUnit] = useState('');
 
+    // =================== GET ITEMS ==========================
     const getItem = () => {
         console.log('in getItem');
         axios.get('/list')
-        .then((response) => {
-            setShoppingList(response.data)
-            console.log('in getItem .then', response.data);
-        }).catch((err) => {
-            console.log('in getItem .catch', err);
-        })
+            .then((response) => {
+                setShoppingList(response.data)
+                console.log('in getItem .then', response.data);
+            }).catch((err) => {
+                console.log('in getItem .catch', err);
+            })
     } // end getItems
 
+    // =================== POST ITEM ==========================
+    const addItem = () => {
+        event.preventDefault();
+        console.log('in addItem');
+
+        let newItem = {name: newName, quantity: newQuantity, unit: newUnit}
+        console.log(newItem);
+        axios({
+            method: 'POST',
+            url: '/list',
+            data: newItem
+        }).then((res) => {
+            console.log('in POST.then', res);
+
+            // rerender new list from database
+            getItem();
+
+            // clear inputs
+            setNewName('');
+            setNewQuantity('');
+            setNewUnit('');
+        }).catch((err) => {
+            console.log('err in POST.catch', err);
+        })
+    }
+    // =================== USE EFFECT ==========================
     // get items on page load
-    useEffect (() => {
+    useEffect(() => {
         getItem();
     }, [])
-
-    console.log('shoppingList', shoppingList);
 
     return (
         <div className="App">
             <Header />
             <main>
-                <p>Under Construction...</p>
+                <h1>Add an item</h1>
+                <form onSubmit={addItem}>
+                    <label>Item:</label>
+                    <input 
+                        type="text" 
+                        placeholder="enter item"
+                        value={newName}
+                        onChange={(event) => setNewName(event.target.value)}
+                    />
+
+                    <label>Quantity:</label>
+                    <input 
+                        type="number" 
+                        placeholder="enter quantity"
+                        value={newQuantity}
+                        onChange={(event) => setNewQuantity(event.target.value)}
+                    />
+
+                    <label>Unit:</label>
+                    <input 
+                        type="text" 
+                        placeholder="enter unit"
+                        value={newUnit}
+                        onChange={(event) => setNewUnit(event.target.value)}
+                    />
+
+                    <button type="submit">Add item</button>
+                </form>
             </main>
         </div>
     );
