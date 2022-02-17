@@ -15,3 +15,10 @@ CREATE TABLE "list" (
 
 INSERT into "list" ( "item", "quantity", "unit")
 VALUES ( 'bananas', 3.3, 'bunches'); 
+
+-- Dummy item 
+INSERT INTO "list" ("item", "quantity", "unit")
+VALUES ('milk', 1, 'gallon');
+
+-- Dummy test
+SELECT * FROM "list" ORDER BY "item" ASC;
