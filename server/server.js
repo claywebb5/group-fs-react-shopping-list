@@ -8,6 +8,8 @@ const PORT = process.env.PORT || 5000;
 app.use(bodyParser.json()); // needed for axios requests
 app.use(express.static('build'));
 
+
+
 /** ---------- EXPRESS ROUTES ---------- **/
 app.use('/list', listRouter);
 
