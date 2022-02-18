@@ -9,7 +9,7 @@ const ShoppingList = ({shoppingList}) => {
             {shoppingList.map(item =>
                 
            ( <div>
-            <div>  {item.name} </div> 
+            <div>  {item.item} </div> 
             <div>  {item.quantity} {item.unit} </div> 
              <div>  <button>Buy</button>   <button>Remove</button> </div>
            </div> )
