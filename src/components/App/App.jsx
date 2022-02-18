@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Header from '../Header/Header.jsx'
 import './App.css';
+import GroceryContainer from '../GroceryContainer/GroceryContainer.jsx';
 
 
 function App() {
@@ -54,7 +55,10 @@ function App() {
         getItem();
     }, [])
 
+
+
     return (
+        <>
         <div className="App">
             <Header />
             <main>
@@ -86,8 +90,13 @@ function App() {
 
                     <button type="submit">Add item</button>
                 </form>
+                <GroceryContainer
+                shoppingList={shoppingList}
+                />
+                
             </main>
         </div>
+    </>
     );
 }
 
