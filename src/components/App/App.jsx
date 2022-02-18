@@ -49,6 +49,7 @@ function App() {
         })
     }
     // =================== USE EFFECT ==========================
+
     // get items on page load
     useEffect(() => {
         getItem();
