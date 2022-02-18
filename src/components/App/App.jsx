@@ -11,6 +11,7 @@ function App() {
     let [newName, setNewName] = useState('');
     let [newQuantity, setNewQuantity] = useState('');
     let [newUnit, setNewUnit] = useState('');
+    let [purchased, setPurchased] = useState(false);
 
     // =================== GET ITEMS ==========================
     const getItem = () => {
@@ -51,7 +52,25 @@ function App() {
     }
 
     // =================== UPDATE ITEM ==========================
- 
+    function updateItem(id) {
+        console.log(id);
+
+        axios({
+            method: 'PUT',
+            url: `/list/${id}`,
+            data: {
+                purchased: setPurchased(true)
+            }
+        }).then((res) => {
+            console.log('in PUT.then', res);
+
+            // rerender new list from database
+            getItem();
+
+        }).catch((err) => {
+            console.log('err in POST.catch', err);
+        })
+    }
 
     // =================== USE EFFECT ==========================
 
@@ -97,6 +116,7 @@ function App() {
                     </form>
                     <GroceryContainer
                         shoppingList={shoppingList}
+                        updateItem={updateItem}
                     />
 
                 </main>

@@ -2,7 +2,7 @@
 import ShoppingList from "../ShoppingList/ShoppingList";
 
 
-const GroceryContainer = ({shoppingList}) => {
+const GroceryContainer = ({shoppingList, updateItem}) => {
 
     return (
         <>
@@ -14,6 +14,7 @@ const GroceryContainer = ({shoppingList}) => {
             
                 <ShoppingList 
                 shoppingList={shoppingList}
+                updateItem={updateItem}
                 />
                 
                 </div>

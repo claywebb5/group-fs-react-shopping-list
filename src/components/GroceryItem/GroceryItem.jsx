@@ -1,7 +1,9 @@
-function GroceryItem({item}) {
+function GroceryItem({item, updateItem}) {
 
     function handlePurchased() {
         console.log('in handlePurchased');
+
+        updateItem(item.id);
     }
 
     return (
