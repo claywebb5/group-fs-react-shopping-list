@@ -9,7 +9,8 @@ CREATE TABLE "list" (
 	"id" SERIAL PRIMARY KEY,
 	"item" varchar(80),
 	"quantity" DECIMAL(5,2),
-	"unit" varchar(20)
+	"unit" varchar(20),
+	"purchased" BOOLEAN DEFAULT false;
 );
 
 
@@ -22,3 +23,7 @@ VALUES ('milk', 1, 'gallon');
 
 -- Dummy test
 SELECT * FROM "list" ORDER BY "item" ASC;
+
+-- Adding column to the table to hold the purchased value
+ALTER TABLE "list" 
+ADD "purchased" BOOLEAN DEFAULT false;

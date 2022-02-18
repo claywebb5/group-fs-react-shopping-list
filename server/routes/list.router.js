@@ -35,4 +35,22 @@ router.post ('/', (req, res) => {
                     
 });
 
+
+router.put('/:id', (req,res) => {
+    let id = req.params.id;
+    console.log('Router.put id is:', id);
+    const sqlText = `UPDATE "list" 
+                    SET "purchased" = true
+                    WHERE "id" = $1;
+                    `;
+    pool.query(sqlText, [id])
+        .then((result) => {
+            console.log('In put.then res is:', result);
+         res.sendStatus(201);
+     }).catch((err) => {
+         console.log('Error in put.catch:', err);
+         res.sendStatus(500);
+     });
+})
+
 module.exports = router;
