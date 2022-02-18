@@ -1,18 +1,17 @@
+import GroceryItem from "../GroceryItem/GroceryItem";
 
-
-const ShoppingList = ({shoppingList}) => {
-
+const ShoppingList = ({shoppingList, updateItem}) => {
 
     return (
         <>
          <div className="shopping-list">
             {shoppingList.map(item =>
                 
-           ( <div>
-            <div>  {item.item} </div> 
-            <div>  {item.quantity} {item.unit} </div> 
-             <div>  <button>Buy</button>   <button>Remove</button> </div>
-           </div> )
+           (<GroceryItem
+                key={item.id}
+                item={item}
+                updateItem={updateItem}
+            />)
                 
                 )}
 
