@@ -1,9 +1,11 @@
+// =================== SETUP ROUTER ==========================
+
 const express = require('express');
 const router = express.Router();
 const pool = require('../modules/pool.js');
 
-// TODO - Add routes here...
-
+// =================== GET ROUTER ============================
+// #region
 router.get('/', (req, res) => {
     const sqlText = 'SELECT * FROM "list" ORDER BY "item" ASC;';
     pool.query(sqlText)
@@ -14,10 +16,11 @@ router.get('/', (req, res) => {
             console.log('Error:', error);
             res.sendStatus(500);
         });
-
-
 });
+// #endregion
 
+// =================== POST ROUTER ============================
+// #region
 router.post ('/', (req, res) => {
     // const list = req.body;
     console.log('req.body is:', req.body);
@@ -34,7 +37,10 @@ router.post ('/', (req, res) => {
     })
                     
 });
+// #endregion
 
+// =================== PUT ROUTER ===========================
+// #region
 
 router.put('/:id', (req,res) => {
     let id = req.params.id;
@@ -52,5 +58,27 @@ router.put('/:id', (req,res) => {
          res.sendStatus(500);
      });
 })
+// #endregion
+
+// =================== DELETE ROUTER ==========================
+// #region
+
+router.delete('/:id', (req, res) => {
+    let reqID = req.params.id;
+    console.log('in DELETE router, id:', reqID);
+    let sqlText = `DELETE FROM "list" WHERE "id" = $1;`;
+    pool.query(sqlText, [reqID])
+    .then((result) => {
+        console.log('in Delete .then', result);
+        res.sendStatus(201);
+    }).catch((err) => {
+        console.log('in Delete .catch', err);
+        res.sendStatus(500)
+    })
+    
+})
+// #endregion
+
+// =================== EXPORTS ==========================
 
 module.exports = router;
