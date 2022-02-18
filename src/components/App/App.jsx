@@ -29,7 +29,7 @@ function App() {
         event.preventDefault();
         console.log('in addItem');
 
-        let newItem = {item: newName, quantity: newQuantity, unit: newUnit}
+        let newItem = { item: newName, quantity: newQuantity, unit: newUnit }
         console.log(newItem);
         axios({
             method: 'POST',
@@ -49,6 +49,10 @@ function App() {
             console.log('err in POST.catch', err);
         })
     }
+
+    // =================== UPDATE ITEM ==========================
+ 
+
     // =================== USE EFFECT ==========================
 
     // get items on page load
@@ -60,44 +64,44 @@ function App() {
 
     return (
         <>
-        <div className="App">
-            <Header />
-            <main>
-                <h1>Add an item</h1>
-                <form onSubmit={addItem}>
-                    <label>Item:</label>
-                    <input 
-                        type="text" 
-                        placeholder="enter item"
-                        value={newName}
-                        onChange={(event) => setNewName(event.target.value)}
+            <div className="App">
+                <Header />
+                <main>
+                    <h1>Add an item</h1>
+                    <form onSubmit={addItem}>
+                        <label>Item:</label>
+                        <input
+                            type="text"
+                            placeholder="enter item"
+                            value={newName}
+                            onChange={(event) => setNewName(event.target.value)}
+                        />
+
+                        <label>Quantity:</label>
+                        <input
+                            type="number"
+                            placeholder="enter quantity"
+                            value={newQuantity}
+                            onChange={(event) => setNewQuantity(event.target.value)}
+                        />
+
+                        <label>Unit:</label>
+                        <input
+                            type="text"
+                            placeholder="enter unit"
+                            value={newUnit}
+                            onChange={(event) => setNewUnit(event.target.value)}
+                        />
+
+                        <button type="submit">Add item</button>
+                    </form>
+                    <GroceryContainer
+                        shoppingList={shoppingList}
                     />
 
-                    <label>Quantity:</label>
-                    <input 
-                        type="number" 
-                        placeholder="enter quantity"
-                        value={newQuantity}
-                        onChange={(event) => setNewQuantity(event.target.value)}
-                    />
-
-                    <label>Unit:</label>
-                    <input 
-                        type="text" 
-                        placeholder="enter unit"
-                        value={newUnit}
-                        onChange={(event) => setNewUnit(event.target.value)}
-                    />
-
-                    <button type="submit">Add item</button>
-                </form>
-                <GroceryContainer
-                shoppingList={shoppingList}
-                />
-                
-            </main>
-        </div>
-    </>
+                </main>
+            </div>
+        </>
     );
 }
 
